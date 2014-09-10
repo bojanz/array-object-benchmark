@@ -11,9 +11,9 @@ This means that the memory usage of various approaches should generally be irrel
 The tests were performed in a 64bit virtualbox machine running Ubuntu 12.04, PHP 5.4.31.
 The measurements in milliseconds represent an average over 10 runs.
 
-    benchmark-array: 1.60ms
-    benchmark-object: 4.36ms
-    benchmark-combined: 2.00ms
+    benchmark-array: 1.02ms
+    benchmark-object: 1.67ms
+    benchmark-object-setters: 4.04ms
 
 Both memory and peak memory stayed at exactly 512kb for all tests, which is curious.
 

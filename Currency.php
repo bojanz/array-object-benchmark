@@ -26,6 +26,14 @@ class Currency implements CurrencyInterface
     protected $symbol;
     protected $fractionDigits;
 
+    public function __construct($currencyCode = null, $name = null, $symbol = null, $numericCode = null, $fractionDigits = null)
+    {
+        $this->currencyCode = $currencyCode;
+        $this->name = $name;
+        $this->symbol = $symbol;
+        $this->fractionDigits = $fractionDigits;
+    }
+
     public function __toString()
     {
         return $this->getCurrencyCode();
@@ -98,22 +106,42 @@ class CurrencyManager
 
     public function __construct()
     {
-        $this->data = json_decode(file_get_contents(__DIR__.'/en.json'));
+        $this->data = json_decode(file_get_contents(__DIR__.'/en.json'), true);
+    }
+
+    public function getNames()
+    {
+        $names = array();
+        foreach ($this->data as $currencyCode => $definition) {
+            $names[$currencyCode] = $definition['name'];
+        }
     }
 
     public function getAll()
     {
         $currencies = array();
-        foreach ($this->data as $currencyCode => $currencyDefinition) {
-            $fractionDigits = isset($currencyDefinition->fraction_digits) ?: 2;
+        foreach ($this->data as $currencyCode => $definition) {
+            $fractionDigits = isset($definition['fraction_digits']) ?: 2;
 
-            $currency = new Currency;
-            $currency->setCurrencyCode($currencyDefinition->code);
-            $currency->setName($currencyDefinition->name);
-            $currency->setSymbol($currencyDefinition->symbol);
-            $currency->setNumericCode($currencyDefinition->numeric_code);
+            $currency = new Currency($definition['code'], $definition['name'], $definition['symbol'], $definition['numeric_code'], $fractionDigits);
+            $currencies[$currencyCode] = $currency;
+        }
+
+        return $currencies;
+    }
+
+    public function getAll2()
+    {
+        $currencies = array();
+        foreach ($this->data as $currencyCode => $definition) {
+            $fractionDigits = isset($definition['fraction_digits']) ?: 2;
+
+            $currency = new Currency();
+            $currency->setCurrencyCode($definition['code']);
+            $currency->setName($definition['name']);
+            $currency->setSymbol($definition['symbol']);
+            $currency->setNumericCode($definition['numeric_code']);
             $currency->setFractionDigits($fractionDigits);
-
             $currencies[$currencyCode] = $currency;
         }
 

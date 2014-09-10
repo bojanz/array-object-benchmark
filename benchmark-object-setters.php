@@ -6,7 +6,7 @@ $time = microtime(true);
 
 // Get all 158 currency objects.
 $manager = new CurrencyManager();
-$currencies = $manager->getAll();
+$currencies = $manager->getAll2();
 
 echo 'Nb of Currencies: '.count($currencies)."\n";
 echo 'Time: '.((microtime(true) - $time)*1000)."ms\n";
