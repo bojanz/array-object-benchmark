@@ -12,8 +12,8 @@ The tests were performed in a 64bit virtualbox machine running Ubuntu 12.04, PHP
 The measurements in milliseconds represent an average over 10 runs.
 
     benchmark-array: 1.02ms
-    benchmark-object: 1.67ms
-    benchmark-object-setters: 4.04ms
+    benchmark-object: 2.34ms
+    benchmark-object-setters: 4.79ms
 
 Both memory and peak memory stayed at exactly 512kb for all tests, which is curious.
 
