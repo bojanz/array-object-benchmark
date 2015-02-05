@@ -147,4 +147,24 @@ class CurrencyManager
 
         return $currencies;
     }
+
+    public function getAll3()
+    {
+        $currencies = array();
+        foreach ($this->data as $currencyCode => $definition) {
+            $currency = new Currency();
+            $setValues = Closure::bind(function ($definition) {
+                $this->currencyCode = $definition['code'];
+                $this->name = $definition['name'];
+                $this->symbol = $definition['symbol'];
+                $this->numericCode = $definition['numeric_code'];
+                $this->fractionDigits = isset($definition['fraction_digits']) ?: 2;
+            }, $currency, 'Currency');
+            $setValues($definition);
+
+            $currencies[$currencyCode] = $currency;
+        }
+
+        return $currencies;
+    }
 }

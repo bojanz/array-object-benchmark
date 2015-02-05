@@ -14,6 +14,7 @@ The measurements in milliseconds represent an average over 10 runs.
     benchmark-array: 1.02ms
     benchmark-object: 2.34ms
     benchmark-object-setters: 4.79ms
+    benchmark-object-bind: 3.86ms
 
 Both memory and peak memory stayed at exactly 512kb for all tests, which is curious.
 
